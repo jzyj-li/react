@@ -11,45 +11,38 @@ class Pagination {
 
     render () {
         let total = this._total,
-            pageSize = this._pageSize,
-            pageNum = Math.ceil(total/pageSize);
-        this.renderPage(pageNum)
+            pageSize = this._pageSize;
+        this.pageNum = Math.ceil(total/pageSize);
+        this.maxPage = this.pageNum>10;
+        return this.renderPage(this.pageNum)
     }
-    renderPage (pageNum, currentIndex) {
-        let index = currentIndex, arr = [],
-            num = pageNum>10? (index>6?6:8):pageNum,
-            start = pageNum >10 && index > 6?index:0;
+    renderPage (pageNum, currentIndex=1) {
+        let index = currentIndex,
+            arr = [],
+            maxPage = this.maxPage,
+            middleIndex = (index > 6) && (index <= (pageNum-6)),
+            minIndex = index <= 6,
+            maxIndex = index > (pageNum-6),
+            num = maxPage?(middleIndex?6:8):pageNum,
+            start = maxPage && middleIndex?index-3:maxPage?(!minIndex?pageNum-7:0):0;
 
-        for(let i=start;i<num;i++) {
-            arr.push( i+1)
+        for(let i=0;i<num;i++) {
+            start == 0?arr.push(i+1):arr.push(start++)
         }
-        pageNum > 10 &&  arr.push('...', num);
-
+        maxPage &&  !maxIndex && arr.push('...', pageNum);
+        !minIndex &&  maxPage && arr.unshift(1,'...')
+        return this._pageArray = arr;
     }
-    // 页数小于10
-    minPage(num) {
-        let arr = []
-
-        return arr;
-    }
-
-    // 页数大于10
-    maxPage (num, currentIndex=2) {
-
-        let arr = [],index = currentIndex
-        if (currentIndex > 6) {
-            arr.push(currentIndex-3,currentIndex-2,currentIndex-1,currentIndex,currentIndex+1,currentIndex+2)
-            arr.unshift(1,'...')
+    setPage (currentIndex) {
+        if (!this.maxPage || (this.maxPage && (currentIndex > (this.pageNum-6)))) {
+            return this._pageArray
         } else {
-            for(let i=0;i<8;i++) {
-                arr.push( i+1)
-            }
+            return this.renderPage(this.pageNum, currentIndex)
         }
-
     }
 }
 
 export default new Pagination({
-    total: 305,
+    total: 288,
     pageSize: 10
 })

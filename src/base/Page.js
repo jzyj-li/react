@@ -10,27 +10,23 @@ class Page extends Component {
         this.state = {
             total: this.props.attrTotal,
             pageArray: [],
-            currentPage: 1,
+            currentIndex: 1,
         }
-    }
-
-    renderPage() { // 默认一页10条 大于10页开始有...
-    }
-
-    currentPage (v) {
-        //this.setState({currentPage: v})
     }
 
     prevPage () {
         console.log('上一页')
     }
-    nextPage () {
+
+    nextPage () {}
+    currentPage (v) {
+        this.setState({currentIndex: v, pageArray: Pagination.setPage(v)});
 
     }
     componentDidMount() {
-        Pagination.render()
+        this.setState({pageArray: Pagination.render()})
+       // console.log(Pagination.render())
     }
-
     render() {
         return (
             <div className="layout__pagination">
@@ -40,17 +36,21 @@ class Page extends Component {
                             上一页
                         </button>
                     </li>
-                    {this.state.pageArray.map((v) => {
+                    {this.state.pageArray.map((v, i) => {
                         return (
-                            <li className="item"  key={v} onClick={this.currentPage.bind(this, v)}>
-                                <button>
-                                    {v}
-                                </button>
+                            <li className="item"  key={i} >
+                                {Number.isInteger(v)?
+                                    (<button className={`item-button ${v == this.state.currentIndex? 'active': ''}`} onClick={this.currentPage.bind(this, v)}>{v}</button>):(
+                                    <button className='ellipsis'>{v}</button>
+                                )}
                             </li>
                         )
                     })}
-                    <li className='next__page item'>
-                        下一页
+                    <li className='item'>
+                        <button type='button' className='next__page'>
+                            下一页
+                        </button>
+
                     </li>
                 </ol>
             </div>
