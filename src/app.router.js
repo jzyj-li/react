@@ -7,6 +7,8 @@ import Layout from './compoments/layout/Layout';
 import Home from './compoments/Home';
 import Release from './compoments/Release';
 import Manage from './compoments/manage'
+import ContentSync from './compoments/manage/ContentSync'
+import MaterialCenter from './compoments/manage/materialCenter'
 
 const routes = [
     {
@@ -32,12 +34,12 @@ const routes = [
             },
             {
                 path: '/contentSync',
-                main: Manage,
+                main: ContentSync,
                 name: '内容同步'
             },
             {
                 path: '/MaterialCenter',
-                main: Manage,
+                main: MaterialCenter,
                 name: '素材中心'
             }
         ]

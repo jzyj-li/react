@@ -25,7 +25,7 @@ class Pagination {
             maxIndex = index > (pageNum-6),
             num = maxPage?(middleIndex?6:8):pageNum,
             start = maxPage && middleIndex?index-3:maxPage?(!minIndex?pageNum-7:0):0;
-
+        console.log(start, num)
         for(let i=0;i<num;i++) {
             start == 0?arr.push(i+1):arr.push(start++)
         }
@@ -34,7 +34,7 @@ class Pagination {
         return this._pageArray = arr;
     }
     setPage (currentIndex) {
-        if (!this.maxPage || (this.maxPage && (currentIndex > (this.pageNum-6)))) {
+        if (!this.maxPage || (this.maxPage && (currentIndex > (this.pageNum-5)))) {
             return this._pageArray
         } else {
             return this.renderPage(this.pageNum, currentIndex)
