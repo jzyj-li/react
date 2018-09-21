@@ -9,6 +9,7 @@ import Release from './compoments/Release';
 import Manage from './compoments/manage'
 import ContentSync from './compoments/manage/ContentSync'
 import MaterialCenter from './compoments/manage/materialCenter'
+import Login from './compoments/Login'
 
 const routes = [
     {

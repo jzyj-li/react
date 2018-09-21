@@ -28,9 +28,25 @@ class Release extends Component {
                             <button>确定</button>
                         </div>
                     </div>
-
+                    <div className="material__tip">
+                        <p>
+                            共 <span>28</span> 条内容
+                        </p>
+                        <button>
+                            上传图片
+                        </button>
+                    </div>
                     <div className="material__list">
-                        <div className="material__item"></div>
+                        <div className="material__item">
+                            <div className="img">
+
+                            </div>
+                            <p>123244</p>
+                            <div className="material__btn">
+                                <button>编辑</button>
+                                <button className='del'>删除</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
